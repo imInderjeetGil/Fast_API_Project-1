@@ -3,7 +3,8 @@ const limit = 5;
 
 
 async function loadProducts(){
-
+    const token = localStorage.getItem("token");
+    const isAdmin = token ? JSON.parse(atob(token.split('.')[1])).role === "admin" : false;
     const res = await fetch(`/products?page=${page}&limit=${limit}`);
     const data = await res.json();
 
@@ -24,15 +25,24 @@ async function loadProducts(){
 
     <div class="mt-4 flex gap-2">
 
-        <button onclick="editProduct(${p.id})"
-        class="bg-blue-500 text-white px-3 py-1 rounded">
-        Edit
-        </button>
+    ${!isAdmin ? `
+    </button><button onclick="addToCart(${p.id})"
+    class="bg-green-500 text-white px-3 py-1 rounded">
+    Add to Cart
+    </button>
+    ` : ''}
 
-        <button onclick="deleteProduct(${p.id})"
-        class="bg-red-500 text-white px-3 py-1 rounded">
-        Delete
-        </button>
+    ${isAdmin ? `
+    <button onclick="editProduct(${p.id})"
+    class="bg-blue-500 text-white px-3 py-1 rounded">
+    Edit
+    </button>
+
+    <button onclick="deleteProduct(${p.id})"
+    class="bg-red-500 text-white px-3 py-1 rounded">
+    Delete
+    </button>
+    ` : ''}
 
     </div>
 
@@ -100,3 +110,29 @@ function editProduct(id){
 }
 
 
+async function addToCart(productId){
+    const token = localStorage.getItem("token");
+    if(!token){
+        alert("Please login first");
+        window.location = "/login-ui";
+        return;
+    }
+
+    const res = await fetch("/cart/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ product_id: productId, quantity: 1 })
+    });
+
+    const data = await res.json();
+
+    if(!res.ok){
+        alert(data.detail || "Failed to add to cart");
+        return;
+    }
+
+    alert("Added to cart!");
+}

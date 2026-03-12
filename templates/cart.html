@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-10">
+
+    <h1 class="text-2xl font-bold mb-6">Your Cart</h1>
+
+    <div id="cart-list"></div>
+
+    <div id="cart-summary" class="bg-white p-4 rounded shadow mt-4 hidden">
+        <p class="text-lg font-semibold">Total: $<span id="cart-total">0</span></p>
+        <button onclick="checkout()"
+        class="bg-green-500 text-white px-4 py-2 rounded mt-4 w-full">
+        Proceed to Checkout
+        </button>
+    </div>
+
+    <p id="empty-msg" class="text-gray-500 hidden">Your cart is empty.</p>
+
+</div>
+
+<script src="/static/js/auth_guard.js"></script>
+<script>requireAuth();</script>
+<script src="/static/js/cart.js"></script>
+
+{% endblock %}

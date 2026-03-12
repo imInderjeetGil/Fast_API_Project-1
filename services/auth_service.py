@@ -8,7 +8,7 @@ def register_user(db: Session, name: str, email: str, password: str):
     
     # checking if email exists already
     
-    existing_user = db.query(User).filter()(User.email == email).first()
+    existing_user = db.query(User).filter(User.email == email).first()
     if existing_user:
         raise HTTPException(status_code=400, detail="User with same email already registered")
     

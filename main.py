@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from db.session import engine
 from models import user,product
 from db.base import Base
-from api import product,auth
+from api import product,auth, cart
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi import Request
@@ -55,6 +55,14 @@ def edit_product_ui(request: Request):
         {"request": request}
     )
 
+@app.get("/register-ui")
+def register_ui(request: Request):
+    return templates.TemplateResponse(
+        "register_user.html",
+        {"request":request}
+    )
+
+
 @app.get("/login-ui")
 def login_ui(request: Request):
     return templates.TemplateResponse(
@@ -62,5 +70,14 @@ def login_ui(request: Request):
         {"request": request}
     )
 
+@app.get("/cart-ui")
+def cart_ui(request: Request):
+    return templates.TemplateResponse(
+        "cart.html",
+        {"request":request}
+    )
+
+
 app.include_router(product.router)
 app.include_router(auth.router)
+app.include_router(cart.router)

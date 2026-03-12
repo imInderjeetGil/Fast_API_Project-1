@@ -10,21 +10,40 @@
     <nav class="bg-white shadow p-4 flex gap-6">
     <a href="/" class="text-blue-600 font-semibold">Home</a>
     <a href="/products-ui" class="text-blue-600 font-semibold">Products</a>
-    <a href="/add-product-ui" class="text-blue-600 font-semibold">Add Product</a>
-
+    
     <span id="auth-section"></span>
 </nav>
 
 <script>
 function renderAuth(){
-
     const token = localStorage.getItem("token");
     const container = document.getElementById("auth-section");
 
     if(token){
-        container.innerHTML = `<button onclick="logout()" class="bg-red-500 text-white px-4 py-1 rounded">Logout</button>`;
-    }else{
-        container.innerHTML = `<a href="/login-ui" class="bg-blue-500 text-white px-4 py-1 rounded">Login</a>`;
+        try {
+            // Fix base64url to base64 before decoding
+            const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+            const payload = JSON.parse(atob(base64));
+            const isAdmin = payload.role === "admin";
+
+            container.innerHTML = `
+                ${isAdmin ? '<a href="/add-product-ui" class="text-blue-600 font-semibold">Add Product</a>' : ''}
+                <a href="/cart-ui" class="text-blue-600 font-semibold mr-4">Cart</a>
+                <button onclick="logout()" class="bg-red-500 text-white px-4 py-1 rounded">Logout</button>
+            `;
+        } catch(e) {
+            // Token is malformed, clear it
+            localStorage.removeItem("token");
+            container.innerHTML = `
+                <a href="/login-ui" class="bg-blue-500 text-white px-4 py-1 rounded">Login</a>
+                <a href="/register-ui" class="bg-green-500 text-white px-4 py-1 rounded ml-2">Register</a>
+            `;
+        }
+    } else {
+        container.innerHTML = `
+            <a href="/login-ui" class="bg-blue-500 text-white px-4 py-1 rounded">Login</a>
+            <a href="/register-ui" class="bg-green-500 text-white px-4 py-1 rounded ml-2">Register</a>
+        `;
     }
 }
 
