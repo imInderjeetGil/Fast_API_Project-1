@@ -28,7 +28,8 @@ function renderAuth(){
 
             container.innerHTML = `
                 ${isAdmin ? '<a href="/add-product-ui" class="text-blue-600 font-semibold">Add Product</a>' : ''}
-                <a href="/cart-ui" class="text-blue-600 font-semibold mr-4">Cart</a>
+                ${!isAdmin ? '<a href="/cart-ui" class="text-blue-600 font-semibold mr-4">Cart</a>' : ''}
+    <a href="/orders-ui" class="text-blue-600 font-semibold mr-4">Orders</a>
                 <button onclick="logout()" class="bg-red-500 text-white px-4 py-1 rounded">Logout</button>
             `;
         } catch(e) {
