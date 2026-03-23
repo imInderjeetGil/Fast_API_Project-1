@@ -63,6 +63,7 @@ jobs:
           ENV=prod
           RAZORPAY_KEY_ID=${{ secrets.RAZORPAY_KEY_ID }}
           RAZORPAY_KEY_SECRET=${{ secrets.RAZORPAY_KEY_SECRET }}
+          DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
           ENVFILE
           
           # Verify .env created
