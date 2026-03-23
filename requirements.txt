@@ -1,4 +1,4 @@
-fastapi
+fastapi==0.128.2
 uvicorn
 sqlalchemy
 psycopg2-binary
@@ -6,7 +6,8 @@ python-dotenv
 python-jose
 passlib[bcrypt]
 bcrypt==3.2.2
-jinja2
+jinja2==3.1.6
 slowapi
 razorpay
 alembic
+starlette==0.50.0

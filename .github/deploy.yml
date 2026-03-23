@@ -1,0 +1,79 @@
+name: CI/CD to EC2 via Docker Hub
+
+on:
+  push:
+    branches:
+      - main   # ya jo bhi primary branch hai
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/techzone-ecommerce:latest
+            ${{ secrets.DOCKER_USERNAME }}/techzone-ecommerce:${{ github.sha }}
+
+  deploy-to-ec2:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy on EC2
+        run: |
+          ssh ${{ secrets.EC2_HOST }} << 'EOF'
+          set -e
+
+          # ENV variables for container (hardcode or use EC2 env/Secrets manager)
+          export DATABASE_URL="postgresql://postgres:iquit12345@db:5432/alchemydb"
+          export SECRET_KEY="super_secret_12345"
+          export ENV="prod"
+          export RAZORPAY_KEY_ID="rzp_test_SQQ1z40HHUkCca"
+          export RAZORPAY_KEY_SECRET="jiOS0gSM19XhzzLTscH6ff9N"
+
+          # Pull latest image from Docker Hub
+          docker pull ${{ secrets.DOCKER_USERNAME }}/techzone-ecommerce:latest
+
+          # Stop & remove old container if exists
+          if [ "$(docker ps -q -f name=techzone-fastapi)" ]; then
+            docker stop techzone-fastapi
+          fi
+          if [ "$(docker ps -aq -f name=techzone-fastapi)" ]; then
+            docker rm techzone-fastapi
+          fi
+
+          # Run new container
+          docker run -d \
+            --name techzone-fastapi \
+            -p 80:8000 \
+            -e DATABASE_URL="$DATABASE_URL" \
+            -e SECRET_KEY="$SECRET_KEY" \
+            -e ENV="$ENV" \
+            -e RAZORPAY_KEY_ID="$RAZORPAY_KEY_ID" \
+            -e RAZORPAY_KEY_SECRET="$RAZORPAY_KEY_SECRET" \
+            ${{ secrets.DOCKER_USERNAME }}/techzone-ecommerce:latest
+          EOF

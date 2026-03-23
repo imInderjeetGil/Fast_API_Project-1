@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: techzone-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-iquit12345}
+      POSTGRES_DB: alchemydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: techzone-fastapi
+    restart: always
+    depends_on:
+      - db
+    environment:
+      # Override DATABASE_URL for Docker to point at "db" instead of "localhost"
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-iquit12345}@db:5432/alchemydb
+
+      SECRET_KEY: ${SECRET_KEY}
+      ENV: ${ENV}
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET}
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data:
