@@ -137,7 +137,7 @@ h1,h2,h3,nav a,button { font-family: 'Geist', sans-serif; }
         <span id="auth-section"></span>
     </div>
 </nav>
-
+{% raw %}
 <script>
 function renderAuth(){
     const token = localStorage.getItem("token");
@@ -197,6 +197,7 @@ function logout(){
 
 renderAuth();
 </script>
+{% endraw %}
 
     {% block content %}{% endblock %}
 
