@@ -15,7 +15,7 @@ Base.metadata.create_all(bind=engine)
 ENV = os.getenv("ENV")
 print(ENV)
 if ENV == "prod":
-    app = FastAPI(title="Demo of FastAPI Basics",docs_url=None, redoc_url=None)
+    app = FastAPI(title="Welcome to TechZone E_Com",docs_url=None, redoc_url=None)
 else:
     app = FastAPI(title="Demo of FastAPI Basics")
 
