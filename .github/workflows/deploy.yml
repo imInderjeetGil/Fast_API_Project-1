@@ -54,7 +54,7 @@ jobs:
           
           # Create .env file
           echo "==> Creating .env file"
-          cat > .env << 'ENVFILE'
+          cat > .env << ENVFILE
           POSTGRES_USER=postgres
           POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB=alchemydb
