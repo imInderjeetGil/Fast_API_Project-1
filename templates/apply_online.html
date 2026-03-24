@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="min-height: 80vh; padding: 2.5rem 1.5rem;">
+    <div style="max-width: 760px; margin: 0 auto;">
+
+        <!-- Header -->
+        <div style="text-align:center; margin-bottom:2.5rem;">
+            <div style="font-size:2.5rem; margin-bottom:0.5rem;">💼</div>
+            <h1 style="font-size:2rem; font-weight:800; color:var(--navy); margin-bottom:0.4rem;">Apply for Internship</h1>
+            <p style="color:#64748b; font-size:0.95rem;">Fill in the details below to apply for an internship at TechZone.</p>
+        </div>
+
+        <!-- Alert box -->
+        <div id="alert-box" style="display:none; margin-bottom:1.5rem; padding:1rem 1.25rem; border-radius:8px; font-size:0.9rem; font-weight:600;"></div>
+
+        <!-- Form card -->
+        <div class="card" style="padding:2rem; border-radius:14px;">
+
+            <!-- Section: Personal Information -->
+            <h2 style="font-size:1rem; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:1.25rem; padding-bottom:0.5rem; border-bottom:2px solid #e2e8f0;">
+                Personal Information
+            </h2>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:1.25rem;">
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Full Name <span style="color:#ef4444;">*</span></label>
+                    <input id="full_name" type="text" placeholder="Aman Gill"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                </div>
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Father's / Guardian's Name <span style="color:#ef4444;">*</span></label>
+                    <input id="father_name" type="text" placeholder="Inderjeet Gill"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.25rem; margin-bottom:1.5rem;">
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Date of Birth <span style="color:#ef4444;">*</span></label>
+                    <input id="date_of_birth" type="date"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                </div>
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Gender <span style="color:#ef4444;">*</span></label>
+                    <select id="gender"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; background:white; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                        <option value="">Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Category <span style="color:#ef4444;">*</span></label>
+                    <select id="category"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; background:white; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                        <option value="">Select</option>
+                        <option value="General">General</option>
+                        <option value="SC">SC</option>
+                        <option value="ST">ST</option>
+                        <option value="OBC">OBC</option>
+                        <option value="PH">PH</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Section: Contact Information -->
+            <h2 style="font-size:1rem; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:1.25rem; padding-bottom:0.5rem; border-bottom:2px solid #e2e8f0;">
+                Contact Information
+            </h2>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:1.25rem;">
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Email Address <span style="color:#ef4444;">*</span></label>
+                    <input id="email" type="email" placeholder="you@example.com"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                </div>
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Phone Number <span style="color:#ef4444;">*</span></label>
+                    <input id="phone" type="tel" placeholder="9876543210"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                </div>
+            </div>
+
+            <div style="margin-bottom:1.5rem;">
+                <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Full Address <span style="color:#ef4444;">*</span></label>
+                <textarea id="address" rows="3" placeholder="House No., Street, City, State, PIN"
+                style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; resize:vertical; transition:border-color 0.2s;"
+                onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'"></textarea>
+            </div>
+
+            <!-- Section: Educational Qualification -->
+            <h2 style="font-size:1rem; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:1.25rem; padding-bottom:0.5rem; border-bottom:2px solid #e2e8f0;">
+                Educational Qualification
+            </h2>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:1.25rem;">
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Highest Qualification <span style="color:#ef4444;">*</span></label>
+                    <select id="qualification"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; background:white; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                        <option value="">Select</option>
+                        <option value="B.Tech / B.E.">B.Tech / B.E.</option>
+                        <option value="M.Tech / M.E.">M.Tech / M.E.</option>
+                        <option value="BCA">BCA</option>
+                        <option value="MCA">MCA</option>
+                        <option value="B.Sc">B.Sc</option>
+                        <option value="M.Sc">M.Sc</option>
+                        <option value="MBA">MBA</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Institution / University <span style="color:#ef4444;">*</span></label>
+                    <input id="institution" type="text" placeholder="e.g. IIT Delhi"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:1.5rem;">
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Specialization / Stream <span style="color:#ef4444;">*</span></label>
+                    <input id="specialization" type="text" placeholder="e.g. Computer Science"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                </div>
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">CGPA / Percentage <span style="color:#ef4444;">*</span></label>
+                    <input id="cgpa" type="text" placeholder="e.g. 8.5 or 85%"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                </div>
+            </div>
+
+            <!-- Section: Internship Details -->
+            <h2 style="font-size:1rem; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:1.25rem; padding-bottom:0.5rem; border-bottom:2px solid #e2e8f0;">
+                Internship Details
+            </h2>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:1.25rem;">
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Preferred Department <span style="color:#ef4444;">*</span></label>
+                    <select id="department"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; background:white; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                        <option value="">Select</option>
+                        <option value="Software Development">Software Development</option>
+                        <option value="UI/UX Design">UI/UX Design</option>
+                        <option value="Data Analytics">Data Analytics</option>
+                        <option value="Digital Marketing">Digital Marketing</option>
+                        <option value="Operations">Operations</option>
+                        <option value="Customer Support">Customer Support</option>
+                        <option value="Finance">Finance</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Duration (weeks) <span style="color:#ef4444;">*</span></label>
+                    <select id="duration_weeks"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; background:white; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                        <option value="">Select</option>
+                        <option value="4">4 Weeks</option>
+                        <option value="8">8 Weeks</option>
+                        <option value="12">12 Weeks</option>
+                        <option value="24">24 Weeks</option>
+                        <option value="52">52 Weeks</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:1.75rem;">
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Mode of Internship <span style="color:#ef4444;">*</span></label>
+                    <select id="mode"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; background:white; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                        <option value="">Select</option>
+                        <option value="Online">Online</option>
+                        <option value="Offline">Offline</option>
+                        <option value="Hybrid">Hybrid</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display:block; font-weight:600; font-size:0.85rem; color:var(--navy); margin-bottom:0.5rem;">Available From <span style="color:#ef4444;">*</span></label>
+                    <input id="available_from" type="date"
+                    style="width:100%; border:2px solid #e2e8f0; padding:0.7rem 1rem; border-radius:8px; font-size:0.9rem; outline:none; box-sizing:border-box; transition:border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='#e2e8f0'">
+                </div>
+            </div>
+
+            <!-- Declaration -->
+            <div style="background:#f8fafc; border-radius:8px; padding:1rem 1.25rem; margin-bottom:1.75rem; border:1px solid #e2e8f0;">
+                <label style="display:flex; align-items:flex-start; gap:0.75rem; cursor:pointer;">
+                    <input id="declaration" type="checkbox" style="margin-top:2px; width:16px; height:16px; flex-shrink:0; cursor:pointer;">
+                    <span style="font-size:0.85rem; color:#475569; line-height:1.5;">
+                        I hereby declare that the information provided above is true and correct to the best of my knowledge. I understand that any false information may result in rejection of my application.
+                    </span>
+                </label>
+            </div>
+
+            <!-- Submit -->
+            <button id="submit-btn" onclick="submitApplication()"
+            style="width:100%; background:var(--orange); color:white; padding:0.9rem; border:none; border-radius:8px; font-weight:700; font-size:1rem; cursor:pointer; transition:opacity 0.2s;"
+            onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+            Submit Application →
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/apply_online.js"></script>
+
+{% endblock %}

@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from db.session import engine
-from models import user,product, cart, order, review
+from models import user,product, cart, order, review, application
 from db.base import Base
-from api import product,auth, cart, order, payment, review
+from api import product,auth, cart, order, payment, review, application
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi import Request
@@ -92,6 +92,13 @@ def orders_ui(request: Request):
         {"request": request}
     )
     
+@app.get("/apply-online")
+def apply_online(request: Request):
+    return templates.TemplateResponse(
+        "apply_online.html",
+        {"request": request}
+    )
+
 @app.get("/payment-success")
 def payment_success(request: Request):
     return templates.TemplateResponse(
@@ -105,3 +112,4 @@ app.include_router(cart.router)
 app.include_router(order.router)
 app.include_router(payment.router)
 app.include_router(review.router)
+app.include_router(application.router)
