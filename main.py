@@ -6,6 +6,7 @@ from api import product,auth, cart, order, payment, review
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi import Request
+from fastapi.middleware.cors import CORSMiddleware
 import os
 
 
@@ -22,6 +23,14 @@ else:
 templates = Jinja2Templates(directory="templates")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://your-domain.com"],  # ← production domain
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/health")
 def health_check():

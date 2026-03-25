@@ -45,10 +45,27 @@ async function addProduct(){
 }
 
     try{
-    await apiRequest("/products","POST",product);
-    alert("Product added!");
-    }catch(err){
-    alert(err.message);
-}
-window.location="/products-ui";
+        const res = await fetch("/products", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + (localStorage.getItem("token") || "")
+            },
+            body: JSON.stringify(product),
+            redirect: "manual"  // ← Add this
+        });
+
+        if (res.ok) {
+            alert("Product added!");
+            window.location.href = "/products-ui";
+        } else if (res.status === 307 || res.status === 303) {
+            // Redirect response - go to products page
+            window.location.href = "/products-ui";
+        } else {
+            const error = await res.json();
+            alert(error.detail || "Failed to add product");
+        }
+    } catch(err){
+        alert("Error: " + err.message);
+    }
 }
