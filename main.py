@@ -20,13 +20,14 @@ if ENV == "prod":
 else:
     app = FastAPI(title="Demo of FastAPI Basics")
 
+app.router.redirect_slashes = False
 templates = Jinja2Templates(directory="templates")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://your-domain.com"],  # ← production domain
+    allow_origins=["https://inderforge.app"],  # ← production domain
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
