@@ -17,7 +17,7 @@ def get_db():
         db.close()
 
 
-@router.get("/", response_model=list[ProductResponse])
+@router.get("", response_model=list[ProductResponse])
 def get_products(
     page: int = 1,
     limit: int=10,
@@ -37,7 +37,7 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
     return product
 
 
-@router.post("/", response_model=ProductResponse)
+@router.post("", response_model=ProductResponse)
 def create_product(product: ProductCreate, db: Session = Depends(get_db), current_user: User = Depends(get_admin_user)):
     return product_service.create_product(db, product,current_user.id)
 
