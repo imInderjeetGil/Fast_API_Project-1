@@ -46,6 +46,10 @@ def get_product(db: Session, product_id:int):
     return db.query(Product).filter(Product.id == product_id).first()
 
 def create_product(db: Session, product: ProductCreate, user_id: int):
+    existing_product = db.query(Product).filter(Product.name == product.name).first()
+    
+    if existing_product:
+        raise HTTPException(status_code=400, detail=f"Product with name '{product.name}' already exists!")
     db_product = Product(**product.model_dump(), owner_id=user_id)
     db.add(db_product)
     db.commit()
